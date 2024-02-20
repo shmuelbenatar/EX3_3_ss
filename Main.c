@@ -1,5 +1,7 @@
 
 #include <stdio.h>
+#include "StrList.h"
+
 
 int main()
 {
@@ -13,7 +15,7 @@ int main()
         switch (userChoice)
         {
         case 1:
-            printf("You chose option 1\n");
+            StrList* stringList =StrList_alloc();
             
             break;
         case 2:

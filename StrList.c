@@ -38,9 +38,29 @@ StrList* List_alloc(){
     return p;
 }
 
-void List_free(StrList* list){
-    if(list==NULL) return ;
-    Node* p1 = list -> _head;
+void StrList_free(StrList* StrList){
+    if(StrList==NULL) return ;
+    Node* p1 = StrList -> _head;
+    Node* p2;
+    while (p1){
+        p2=p1;
+        p1= p1 -> _next;
+        Node_free(p2);
+    }
+    free(StrList);
 }
+
+
+size_t StrList_size(const StrList* StrList){
+    return StrList ->_size;
+}
+
+void StrList_insertLast(StrList* StrList,const char* data){
+
+}
+char* StrList_firstData(const StrList* StrList){
+    return StrList -> _head -> _data;
+}
+
 
 

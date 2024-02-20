@@ -39,7 +39,8 @@ StrList* List_alloc(){
 }
 
 void List_free(StrList* list){
-    
+    if(list==NULL) return ;
+    Node* p1 = list -> _head;
 }
 
 

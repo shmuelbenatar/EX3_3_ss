@@ -56,7 +56,18 @@ size_t StrList_size(const StrList* StrList){
 }
 
 void StrList_insertLast(StrList* StrList,const char* data){
+    Node* newNode = (Node*)malloc(sizeof(Node));
+    if(newNode == NULL){
+        return;
+    }
+    newNode ->_data = *data;
+    newNode ->_next = NULL;
 
+    if()
+     
+    
+    
+    
 }
 char* StrList_firstData(const StrList* StrList){
     return StrList -> _head -> _data;

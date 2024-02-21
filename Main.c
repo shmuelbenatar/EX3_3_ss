@@ -3,6 +3,7 @@
 #include "StrList.h"
 
 
+
 int main()
 {
     int userChoice;
@@ -40,19 +41,26 @@ int main()
             printf("You chose option 8\n");
             break;
         case 9:
-            printf("You chose option 9\n");
+            int getindex ;
+            scanf("%d", &getindex);
+            StrList_removeAt(StrList1, getindex); 
             break;
         case 10:
-            printf("You chose option 10\n");
+            StrList_reverse(StrList1);
             break;
         case 11:
             printf("You chose option 11\n");
             break;
         case 12:
-            printf("You chose option 12\n");
+            StrList_sort(StrList1);
             break;
         case 13:
-            printf("You chose option 13\n");
+            if(StrList_isSorted(StrList1)){
+                printf("false");
+            }
+            else{
+                printf("true");
+            }
             break;
         case 0:
             printf("You chose option 13\n");

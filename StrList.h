@@ -19,6 +19,8 @@
 struct _StrList;
 typedef struct _StrList StrList;
 
+
+
 /*
  * Allocates a new empty StrList.
  * It's the user responsibility to free it with StrList_free.
@@ -110,6 +112,11 @@ void StrList_sort( StrList* StrList);
  * Checks if the given list is sorted in lexicographical order
  * returns 1 for sorted,   0 otherwise
  */
+
+
+struct _node;
+typedef struct _node Node;
+
 int StrList_isSorted(StrList* StrList);
 
 
@@ -117,3 +124,7 @@ Node* Node_alloc(char data, Node* next);
 
 
 void Node_free(Node* node);
+
+void merge(Node* left, Node* right, size_t leftSize, size_t rightSize);
+
+void mergeSort(Node** head, size_t size);

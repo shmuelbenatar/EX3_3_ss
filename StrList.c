@@ -4,13 +4,13 @@
 
 typedef struct _node{
     char _data;
-    struct _node * _next;
+    struct _node* _next;
 }Node;
 
-struct _StrList{
+typedef struct _StrList{
     Node* _head;
     size_t _size;
-}List;
+}StrList;
 
 
 
@@ -34,7 +34,7 @@ void Node_free(Node* node){
 //------------------------------------------------
 
 StrList* List_alloc(){
-    StrList* p=(StrList*)malloc(sizeof(List));
+    StrList* p=(StrList*)malloc(sizeof(StrList));
     p->_head=NULL;
     p->_size=0;
     return p;
@@ -112,11 +112,130 @@ void StrList_insertAt(StrList* StrList,const char* data , int index){
     StrList -> _size++;
 }
 
+char* StrList_firstData(const StrList* StrList){
+    if(StrList -> _head == NULL){
+        return NULL;
+    }
+    return &(StrList -> _head -> _data);
+}
+
+void StrList_print(const StrList* StrList){
+   if(StrList -> _head == NULL){
+    return;
+   } 
+   Node* current = StrList -> _head;
+   while (current != NULL){
+        printf("%c ",current -> _data);
+        current = current -> _next;
+   }
+   printf("\n");
+}
+
+
+void StrList_printAt(const StrList* StrList, int index) {
+    if (index < 0 || index >= StrList->_size) {
+        return;
+    }
+    Node* current = StrList->_head;
+    for (int i = 0; i < index; ++i) {
+        current = current->_next;
+    }
+    printf("%s\n", &(current->_data));
+}
+
+
+int StrList_printLen(const StrList* StrList) {
+    int totalChars = 0;
+    Node* current = StrList->_head;
+    while (current != NULL) {
+        totalChars++; 
+        current = current->_next;
+    }
+    return totalChars;
+}
 
 
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+int StrList_count(StrList* StrList, const char* data){
+    int count = 0;
+    if (StrList && data) {
+        Node* current = StrList->_head;
+        while (current) {
+            if (current->_data == *data) {
+                count++;
+            }
+            current = current->_next;
+        }
+    }
+    return count;
+}
+
+
+
+
+
+
+
+void StrList_remove(StrList* strList, const char* data) {
+    Node* current = strList->_head;
+    Node* prev = NULL;
+    Node* next = NULL;
+
+    while (current != NULL) {
+        if (strcmp(current->_data, data) == 0) {
+            next = current->_next;
+
+            if (prev != NULL) {
+                prev->_next = next;
+            } 
+            else {
+                strList->_head = next;
+            }
+            free(current); 
+            strList->_size--; 
+            current = next;
+        } 
+        else {
+            prev = current;
+            current = current->_next;
+        }
+    }
+}
+
+void StrList_removeAt(StrList* strList, int index) {
+    if (index < 0 || index >= strList->_size) {
+        return; 
+    }
+    Node* current = strList->_head;
+    Node* prev = NULL;
+    for (int i = 0; i < index; i++) {
+        prev = current;
+        current = current->_next;
+    }
+    if (prev == NULL) {
+        strList->_head = current->_next;
+    } 
+    else {
+        prev->_next = current->_next;
+    }
+    free(current); 
+    strList->_size--; 
+}
 
 
 
@@ -133,59 +252,48 @@ int StrList_isEqual(const StrList* strList1, const StrList* strList2) {
         current1 = current1->_next;
         current2 = current2->_next;
     }
-
-   
     if (current1 != NULL || current2 != NULL) {
         return 0;
     }
-
     return 1;
 }
 
 
 
-
-StrList* StrList_clone(const StrList* originalList) {
-    // יצירת רשימה חדשה
-    StrList* newList = (StrList*)malloc(sizeof(StrList));
+StrList* StrList_clone(const StrList* StrList) {
+    struct _StrList* newList = List_alloc();
     if (newList == NULL) {
-        return NULL; // אם נכשלה ההקצאה
+        return NULL; 
     }
+    newList->_size = StrList->_size;
 
-    // איתחול הרשימה החדשה
-    newList->_head = NULL;
-    newList->_size = originalList->_size;
-
-    // עובר על הרשימה המקורית ומעתיק כל תא ומחרוזת
-    Node* currentOriginal = originalList->_head;
-    Node* tailNew = NULL; // סיימנו כאן את הרשימה החדשה עד כה
+    Node* currentOriginal = StrList->_head;
+    Node* tailNew = NULL; 
 
     while (currentOriginal != NULL) {
-        // יצירת תא חדש
         Node* newNode = (Node*)malloc(sizeof(Node));
         if (newNode == NULL) {
-            // אם נכשלה ההקצאה
-            StrList_free(newList); // לשחרור הזיכרון שנוצר עד כה
+            StrList_free(newList); 
             return NULL;
         }
         newNode->_data = currentOriginal->_data;
         newNode->_next = NULL;
 
-        // מחבר את התא לרשימה החדשה
         if (newList->_head == NULL) {
             newList->_head = newNode;
-        } else {
+        } 
+        else {
             tailNew->_next = newNode;
         }
         tailNew = newNode;
-
-        // המשך לתא הבא ברשימה המקורית
 
         currentOriginal = currentOriginal->_next;
     }
 
     return newList;
 }
+
+
 
 
 void StrList_reverse(StrList* strList) {
@@ -203,31 +311,50 @@ void StrList_reverse(StrList* strList) {
     strList->_head = prev;
 }
 
-
-
-void StrList_sort(StrList* list) {
-    if (list->_size <= 1){
-         return;
-    }
-    Node* current = list->_head;
-    Node* index = NULL;
+// Merge function to merge sort
+void merge(Node* left, Node* right, size_t leftSize, size_t rightSize) {
     char temp;
-
-    while (current != NULL) {
-        
-        index = current->_next;
-
-        while (index != NULL) {
-            if (current->_data > index->_data) {
-                temp = current->_data;
-                current->_data = index->_data;
-                index->_data = temp;
-            }
-            index = index->_next;
+    while (leftSize > 0 && rightSize > 0) {
+        if (left->_data <= right->_data) {
+            left = left->_next;
+            leftSize--;
+        } else {
+            temp = left->_data;
+            left->_data = right->_data;
+            right->_data = temp;
+            right = right->_next;
+            rightSize--;
         }
-        current = current->_next;
     }
 }
+
+// Merge Sort 
+void mergeSort(Node** head, size_t size) {
+    if (size <= 1) {
+        return;
+    }
+    Node *left, *right;
+    size_t mid = size / 2;
+    left = *head;
+    for (size_t i = 0; i < mid - 1; ++i) {
+        left = left->_next;
+    }
+    right = left->_next;
+    left->_next = NULL;
+    mergeSort(&(*head), mid);
+    mergeSort(&right, size - mid);
+    merge(*head, right, mid, size - mid);
+}
+
+void StrList_sort(StrList* list) {
+    if (list->_size <= 1) {
+        return;
+    }
+    mergeSort(&(list->_head), list->_size);
+}
+
+
+
 
 
 int StrList_isSorted(StrList* strList) {

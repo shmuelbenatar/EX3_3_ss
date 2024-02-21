@@ -75,7 +75,7 @@ void StrList_insertLast(StrList* StrList,const char* data){
             current = current -> _next;
         }
 
-        current -> _next = newNode;
+        current -> _next = newNode; 
     }
      StrList ->  _size++;
 }
@@ -100,7 +100,7 @@ void StrList_insertAt(StrList* StrList,const char* data , int index){
     if(index == 0){
         newNode -> _next = StrList -> _head;
         StrList -> _head = newNode;
-    }
+    } 
     else{
         Node* current = StrList-> _head;
         for(int i = 0 ; i< index -1 ; ++i){
@@ -125,22 +125,20 @@ int StrList_isEqual(const StrList* strList1, const StrList* strList2) {
     Node* current1 = strList1->_head;
     Node* current2 = strList2->_head;
 
-    // עבור דרך כל התאים בשתי הרשימות
+
     while (current1 != NULL && current2 != NULL) {
-        // בדיקה האם המחרוזות בשני התאים זהות
         if (strcmp(current1->_data, current2->_data) != 0) {
-            return 0; // אם הן לא זהות, החזר 0
+            return 0; 
         }
         current1 = current1->_next;
         current2 = current2->_next;
     }
 
-    // אם נגיע לסופי אחת מהרשימות ולא נגיע לסוף השנייה, הרשימות אינן זהות
+   
     if (current1 != NULL || current2 != NULL) {
         return 0;
     }
 
-    // אם הגענו לכאן, כל התאים בשתי הרשימות זהים
     return 1;
 }
 
@@ -182,6 +180,7 @@ StrList* StrList_clone(const StrList* originalList) {
         tailNew = newNode;
 
         // המשך לתא הבא ברשימה המקורית
+
         currentOriginal = currentOriginal->_next;
     }
 
@@ -215,7 +214,7 @@ void StrList_sort(StrList* list) {
     char temp;
 
     while (current != NULL) {
-       
+        
         index = current->_next;
 
         while (index != NULL) {
@@ -233,15 +232,15 @@ void StrList_sort(StrList* list) {
 
 int StrList_isSorted(StrList* strList) {
     Node* current = strList->_head;
-   
+    
     while (current != NULL && current->_next != NULL) {
         if (strcmp(current->_data, current->_next->_data) > 0) {
-            return 0;
+            return 0; 
         }
         current = current->_next;
     }
-   
-    return 1;
+    
+    return 1; //if current is null so return 1
 }
 
 

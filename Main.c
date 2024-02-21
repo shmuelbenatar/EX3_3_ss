@@ -6,16 +6,16 @@
 int main()
 {
     int userChoice;
+    StrList* StrList1 = NULL;
 
-    printf("Enter a number between 0 and 12: ");
+    printf("Enter a number between 0 and 13: ");
     scanf("%d", &userChoice);
     do
     {
-
         switch (userChoice)
         {
         case 1:
-            StrList* stringList =StrList_alloc();
+            StrList* stringList = StrList_alloc();
             
             break;
         case 2:

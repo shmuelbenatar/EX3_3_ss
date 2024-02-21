@@ -59,13 +59,13 @@ char* StrList_firstData(const StrList* StrList);
 void StrList_print(const StrList* StrList);
 
 /*
- Prints the word at the given index to the standard output.
-*/
+ *Prints the word at the given index to the standard output.
+ */
 void StrList_printAt(const StrList* Strlist,int index);
 
 /*
  * Return the amount of chars in the list.
-*/
+ */
 int StrList_printLen(const StrList* Strlist);
 
 /*
@@ -94,6 +94,7 @@ int StrList_isEqual(const StrList* StrList1, const StrList* StrList2);
  * It's the user responsibility to free it with StrList_free.
  */
 StrList* StrList_clone(const StrList* StrList);
+
 
 /*
  * Reverces the given StrList. 

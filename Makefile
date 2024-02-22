@@ -1,17 +1,17 @@
 CC = gcc
 AR = ar
 CFLAGS = -Wall -g
-AFLAGS = rcs
+AFLAGS = -rcs
 
 
 
 all: StrList 
 
-StrList: Main.o libmystring.a
-	$(CC) $(CFLAGS) libmystring.a Main.o -o StrList
+StrList: Main.o StrList.a
+	$(CC) $(CFLAGS) -o StrList Main.o StrList.a
 
-libmystring.a: StrList.o
-	$(AR) $(AFLAGS) libmystring.a StrList.o
+StrList.a: StrList.o
+	$(AR) $(AFLAGS) StrList.a StrList.o
 
 Main.o: Main.c StrList.h
 	$(CC) $(CFLAGS) -c Main.c
@@ -19,6 +19,9 @@ Main.o: Main.c StrList.h
 StrList.o: StrList.c StrList.h
 	$(CC) $(CFLAGS) -c StrList.c
 
+
+
+.PHONY: clean all
 
 
 clean:

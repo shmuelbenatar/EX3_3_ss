@@ -35,7 +35,7 @@ void Node_free(Node* node){
 // List implementation
 //------------------------------------------------
 
-StrList* List_alloc(){
+StrList* StrList_alloc(){
     StrList* p=(StrList*)malloc(sizeof(StrList));
     p->_head=NULL;
     p->_size=0;
@@ -245,7 +245,7 @@ int StrList_isEqual(const StrList* strList1, const StrList* strList2) {
 
 
 StrList* StrList_clone(const StrList* StrList) {
-    struct _StrList* newList = List_alloc();
+    struct _StrList* newList = StrList_alloc();
     if (newList == NULL) {
         return NULL; 
     }

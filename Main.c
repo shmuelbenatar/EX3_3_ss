@@ -16,32 +16,55 @@ int main()
         switch (userChoice)
         {
         case 1:
-            StrList* stringList = StrList_alloc();
-            
+            size_t userSize;
+            StrList1 = StrList_alloc();
+            if(scanf("%zu",&userSize)!=1){
+                return;
+            }
+            else{
+                for(size_t i=1;i<=userSize;i++){
+                    char* getWord;
+                    scanf(" %s", getWord);
+                    StrList_insertLast(StrList1,getWord);
+                }
+            }
             break;
         case 2:
-            printf("You chose option 2\n");
+            int getIndex = -1;
+            scanf("%d", &getIndex);
+            char *data;
+            scanf("%s",data);
+            StrList_insertAt(StrList1, data, getIndex);
             break;
         case 3:
-            printf("You chose option 3\n");
+            StrList_print(StrList1);
             break;
         case 4:
-            printf("You chose option 4\n");
+            size_t lenString = StrList_size(StrList1);
+            printf("%d",lenString);
             break;
         case 5:
-            printf("You chose option 5\n");
+            int getindex = -1;
+            scanf("%d", &getindex);
+            StrList_printAt(StrList1, getindex);
             break;
         case 6:
-            printf("You chose option 6\n");
+            int numberOfChar = StrList_printLen(StrList1);
+            printf("%d",numberOfChar);
             break;
         case 7:
-            printf("You chose option 7\n");
+            char *getString;
+            scanf("%s",getString);
+            int ans = StrList_count(StrList1, getString);
+            printf("%d",&ans);
             break;
         case 8:
-            printf("You chose option 8\n");
+            char *getString;
+            scanf("%s",getString);
+            StrList_remove( StrList1, getString);
             break;
         case 9:
-            int getindex ;
+            int getindex = -1;
             scanf("%d", &getindex);
             StrList_removeAt(StrList1, getindex); 
             break;
@@ -49,7 +72,7 @@ int main()
             StrList_reverse(StrList1);
             break;
         case 11:
-            printf("You chose option 11\n");
+            StrList_free(StrList1);
             break;
         case 12:
             StrList_sort(StrList1);

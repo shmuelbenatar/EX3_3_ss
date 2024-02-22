@@ -8,6 +8,7 @@ int main(){
     int userChoice;
     StrList* StrList1 = NULL;
 
+
     printf("Enter a number between 0 and 13: ");
     scanf("%d", &userChoice);
     do
@@ -22,7 +23,7 @@ int main(){
             }
             else{
                 for(size_t i=1;i<=userSize;i++){
-                    char* getWord;
+                    char* getWord = malloc(sizeof(char)*100);
                     scanf(" %s", getWord);
                     StrList_insertLast(StrList1,getWord);
                 }
@@ -31,7 +32,7 @@ int main(){
         case 2:
             int getIndex = -1;
             scanf("%d", &getIndex);
-            char *data;
+            char *data = malloc(sizeof(char) * 100);
             scanf("%s",data);
             StrList_insertAt(StrList1, data, getIndex);
             break;
@@ -52,13 +53,13 @@ int main(){
             printf("%d",numberOfChar);
             break;
         case 7:
-            char *getString;
+            char *getString = malloc(sizeof(char) * 100);
             scanf("%s",getString);
             int ans = StrList_count(StrList1, getString);
             printf("%d",ans);
             break;
         case 8:
-            char *getStringToRemove;
+            char *getStringToRemove = malloc(sizeof(char) * 100);
             scanf("%s",getStringToRemove);
             StrList_remove( StrList1, getStringToRemove);
             break;

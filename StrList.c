@@ -20,7 +20,7 @@ typedef struct _StrList{
 // Node implementation
 //------------------------------------------------
 
-Node* Node_alloc(char data, Node* next){
+Node* Node_alloc(char* data, Node* next){
     Node* p=(Node*)malloc(sizeof(Node));
     p->_data=data;
     p->_next=next;
@@ -70,7 +70,7 @@ void StrList_insertLast(StrList* StrList,const char* data){
     if(newNode == NULL){
         return;
     }
-    newNode ->_data = *data;
+    newNode ->_data = strdup(data);
     newNode ->_next = NULL;
 
     if (StrList->_head == NULL) {
@@ -97,7 +97,7 @@ void StrList_insertAt(StrList* StrList,const char* data , int index){
     if(newNode == NULL){
         return;
     }
-    newNode -> _data = *data;
+    newNode -> _data = strdup(data);
     newNode ->_next = NULL;
 
     if(index == 0){
@@ -119,7 +119,7 @@ char* StrList_firstData(const StrList* StrList){
     if(StrList -> _head == NULL){
         return NULL;
     }
-    return &(StrList -> _head -> _data);
+    return StrList -> _head -> _data;
 }
 
 void StrList_print(const StrList* StrList){
@@ -128,7 +128,7 @@ void StrList_print(const StrList* StrList){
    } 
    Node* current = StrList -> _head;
    while (current != NULL){
-        printf("%c ",current -> _data);
+        printf("%s",current -> _data);
         current = current -> _next;
    }
    printf("\n");
@@ -143,7 +143,7 @@ void StrList_printAt(const StrList* StrList, int index) {
     for (int i = 0; i < index; ++i) {
         current = current->_next;
     }
-    printf("%s\n", &(current->_data));
+    printf("%s\n", current->_data);
 }
 
 
@@ -164,7 +164,7 @@ int StrList_count(StrList* StrList, const char* data){
     if (StrList && data) {
         Node* current = StrList->_head;
         while (current) {
-            if (current->_data == *data) {
+            if (current->_data == data) {
                 count++;
             }
             current = current->_next;
@@ -297,7 +297,7 @@ void StrList_reverse(StrList* strList) {
 
 // Merge function to merge sort
 void merge(Node* left, Node* right, size_t leftSize, size_t rightSize) {
-    char temp;
+    char *temp;
     while (leftSize > 0 && rightSize > 0) {
         if (left->_data <= right->_data) {
             left = left->_next;

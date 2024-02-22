@@ -119,7 +119,7 @@ typedef struct _node Node;
 int StrList_isSorted(StrList* StrList);
 
 
-Node* Node_alloc(char data, Node* next);
+Node* Node_alloc(char* data, Node* next);
 
 
 void Node_free(Node* node);

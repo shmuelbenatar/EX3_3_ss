@@ -1,5 +1,6 @@
 #pragma once
-
+#ifndef _STRLIST_H
+#define _STRLIST_H
 #include <stdlib.h>
 
 /********************************************************************************
@@ -41,14 +42,12 @@ size_t StrList_size(const StrList* StrList);
 /*
  * Inserts an element in the end of the StrList.
  */
-void StrList_insertLast(StrList* StrList,
-					  const char* data);
+void StrList_insertLast(StrList* StrList,const char* data);
 
 /*
 * Inserts an element at given index
 */
-void StrList_insertAt(StrList* StrList,
-	const char* data,int index);
+void StrList_insertAt(StrList* StrList,const char* data,int index);
 
 /*
  * Returns the StrList first data.
@@ -128,3 +127,6 @@ void Node_free(Node* node);
 void merge(Node* left, Node* right, size_t leftSize, size_t rightSize);
 
 void mergeSort(Node** head, size_t size);
+
+
+#endif

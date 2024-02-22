@@ -7,9 +7,11 @@ AFLAGS = rcs
 
 all: StrList 
 
-StrList: StrList.o main.o 
+StrList: main.o libmystring.a
 	$(CC) $(CFLAGS) StrList.o Main.o -o StrList
 
+libmystring.a: StrList.o
+	$(AR) $(AFLAGS) libmystring.a StrList.o
 
 Main.o: Main.c StrList.h
 	$(CC) $(CFLAGS) -c Main.c

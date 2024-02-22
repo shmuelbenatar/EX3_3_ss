@@ -1,9 +1,11 @@
 #include "StrList.h"
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
+
 
 typedef struct _node{
-    char _data;
+    char* _data;
     struct _node* _next;
 }Node;
 
@@ -54,7 +56,13 @@ void StrList_free(StrList* StrList){
 
 
 size_t StrList_size(const StrList* StrList){
-    return StrList ->_size;
+    size_t totalChars = 0;
+    Node* current = StrList->_head;
+    while (current != NULL) {
+        totalChars++; 
+        current = current->_next;
+    }
+    return totalChars;
 }
 
 void StrList_insertLast(StrList* StrList,const char* data){
@@ -65,25 +73,20 @@ void StrList_insertLast(StrList* StrList,const char* data){
     newNode ->_data = *data;
     newNode ->_next = NULL;
 
-    if(StrList -> _head = *data){
-        newNode -> _next = NULL;
-    }
-    else
-    {
-        Node* current = StrList -> _head;
-        while (current -> _next != NULL ){
-            current = current -> _next;
+    if (StrList->_head == NULL) {
+        StrList->_head = newNode; 
+    } else {
+        Node* current = StrList->_head;
+        while (current->_next != NULL) {
+            current = current->_next;
         }
-
-        current -> _next = newNode; 
+        current->_next = newNode; 
+    
     }
-     StrList ->  _size++;
+     StrList -> _size++;
 }
 
 
-char* StrList_firstData(const StrList* StrList){
-    return StrList -> _head -> _data;
-}
 
 void StrList_insertAt(StrList* StrList,const char* data , int index){
     if(index < 0 || index > StrList -> _size){
@@ -149,26 +152,11 @@ int StrList_printLen(const StrList* StrList) {
     Node* current = StrList->_head;
     while (current != NULL) {
         totalChars++; 
+        totalChars += strlen(current->_data);
         current = current->_next;
     }
     return totalChars;
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 int StrList_count(StrList* StrList, const char* data){
@@ -184,10 +172,6 @@ int StrList_count(StrList* StrList, const char* data){
     }
     return count;
 }
-
-
-
-
 
 
 

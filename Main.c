@@ -4,8 +4,7 @@
 
 
 
-int main()
-{
+int main(){
     int userChoice;
     StrList* StrList1 = NULL;
 
@@ -19,7 +18,7 @@ int main()
             size_t userSize;
             StrList1 = StrList_alloc();
             if(scanf("%zu",&userSize)!=1){
-                return;
+                return 0;
             }
             else{
                 for(size_t i=1;i<=userSize;i++){
@@ -41,7 +40,7 @@ int main()
             break;
         case 4:
             size_t lenString = StrList_size(StrList1);
-            printf("%d",lenString);
+            printf("%zu",lenString);
             break;
         case 5:
             int getindex = -1;
@@ -56,17 +55,17 @@ int main()
             char *getString;
             scanf("%s",getString);
             int ans = StrList_count(StrList1, getString);
-            printf("%d",&ans);
+            printf("%d",ans);
             break;
         case 8:
-            char *getString;
-            scanf("%s",getString);
-            StrList_remove( StrList1, getString);
+            char *getStringToRemove;
+            scanf("%s",getStringToRemove);
+            StrList_remove( StrList1, getStringToRemove);
             break;
         case 9:
-            int getindex = -1;
-            scanf("%d", &getindex);
-            StrList_removeAt(StrList1, getindex); 
+            int getIndexToRemove = -1;
+            scanf("%d", &getIndexToRemove);
+            StrList_removeAt(StrList1, getIndexToRemove); 
             break;
         case 10:
             StrList_reverse(StrList1);

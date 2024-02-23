@@ -1,33 +1,36 @@
-
+#include <stdlib.h>
 #include <stdio.h>
+#include <string.h>
 #include "StrList.h"
 
 
 
 int main(){
     int userChoice;
-    StrList* StrList1 = NULL;
+    StrList* StrList1 = StrList_alloc();
 
-
-    printf("Enter a number between 0 and 13: ");
-    scanf("%d", &userChoice);
+    
     do
     {
+        scanf("%d", &userChoice);
         switch (userChoice)
         {
         case 1:
-            size_t userSize;
-            StrList1 = StrList_alloc();
-            if(scanf("%zu",&userSize)!=1){
-                return 0;
-            }
-            else{
-                for(size_t i=1;i<=userSize;i++){
-                    char* getWord = malloc(sizeof(char)*100);
-                    scanf(" %s", getWord);
-                    StrList_insertLast(StrList1,getWord);
+            
+            size_t userSize = 0;
+            size_t maxWord = 45;
+            scanf("%zu", &userSize);
+            for (int i = 0; i < userSize; i++) {
+                char* userInput = malloc(sizeof(char) * maxWord);
+                scanf("%s\n", userInput);
+                if (userInput != NULL) {
+                    StrList_insertLast(StrList1, userInput);
+                    free(userInput);
                 }
             }
+
+            
+
             break;
         case 2:
             int getIndex = -1;

@@ -5,9 +5,10 @@
 
 
 
+
 int main(){
     int userChoice;
-    StrList* StrList1 = StrList_alloc();
+    StrList *StrList1 = StrList_alloc();
 
     
     do
@@ -16,10 +17,12 @@ int main(){
         switch (userChoice)
         {
         case 1:
-            
             size_t userSize = 0;
             size_t maxWord = 45;
-            scanf("%zu", &userSize);
+            if(scanf("%zu",&userSize)!=1){
+                return 0;
+            } 
+            
             for (int i = 0; i < userSize; i++) {
                 char* userInput = malloc(sizeof(char) * maxWord);
                 scanf("%s\n", userInput);
@@ -28,10 +31,8 @@ int main(){
                     free(userInput);
                 }
             }
-
-            
-
             break;
+           
         case 2:
             int getIndex = -1;
             scanf("%d", &getIndex);

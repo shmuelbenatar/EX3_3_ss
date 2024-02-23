@@ -1,6 +1,6 @@
 #pragma once
-#ifndef _STRLIST_H
-#define _STRLIST_H
+#ifndef STRLIST_H
+#define STRLIST_H
 #include <stdlib.h>
 
 /********************************************************************************
@@ -20,6 +20,16 @@
 struct _StrList;
 typedef struct _StrList StrList;
 
+
+typedef struct _node{
+    char* _data;
+    struct _node* _next;
+}Node;
+
+typedef struct _StrList{
+    Node* _head;
+    size_t _size;
+}StrList;
 
 
 /*

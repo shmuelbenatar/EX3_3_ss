@@ -9,26 +9,27 @@
 int main(){
     int userChoice;
     StrList *StrList1 = StrList_alloc();
+    int userSize = 0;
+    int maxWord = 45;
 
     
     do
     {
         scanf("%d", &userChoice);
         switch (userChoice)
+        
         {
         case 1:
-            size_t userSize = 0;
-            size_t maxWord = 45;
-            if(scanf("%zu",&userSize)!=1){
+           
+            if(scanf("%d",&userSize)!=1){
                 return 0;
             } 
             
             for (int i = 0; i < userSize; i++) {
-                char* userInput = malloc(sizeof(char) * maxWord);
-                scanf("%s\n", userInput);
-                if (userInput != NULL) {
-                    StrList_insertLast(StrList1, userInput);
-                    free(userInput);
+                char newWord[maxWord];
+                scanf("%s", newWord);
+                if (newWord != NULL) {
+                    StrList_insertLast(StrList1, newWord);
                 }
             }
             break;
@@ -36,16 +37,17 @@ int main(){
         case 2:
             int getIndex = -1;
             scanf("%d", &getIndex);
-            char *data = malloc(sizeof(char) * 100);
+            char data[100];
             scanf("%s",data);
             StrList_insertAt(StrList1, data, getIndex);
             break;
         case 3:
             StrList_print(StrList1);
+
             break;
         case 4:
-            size_t lenString = StrList_size(StrList1);
-            printf("%zu",lenString);
+            int lenString = StrList_size(StrList1);
+            printf("%d\n",lenString);
             break;
         case 5:
             int getindex = -1;
@@ -54,13 +56,13 @@ int main(){
             break;
         case 6:
             int numberOfChar = StrList_printLen(StrList1);
-            printf("%d",numberOfChar);
+            printf("%d\n",numberOfChar);
             break;
         case 7:
-            char *getString = malloc(sizeof(char) * 100);
+            char getString[50];
             scanf("%s",getString);
             int ans = StrList_count(StrList1, getString);
-            printf("%d",ans);
+            printf("%d\n",ans);
             break;
         case 8:
             char *getStringToRemove = malloc(sizeof(char) * 100);
@@ -76,21 +78,22 @@ int main(){
             StrList_reverse(StrList1);
             break;
         case 11:
-            StrList_free(StrList1);
+        int i =StrList1->_size-1;
+            while(i>0){
+                StrList_removeAt(StrList1,0);
+                i--;
+            }
+            StrList1->_head->_data = "";
             break;
         case 12:
             StrList_sort(StrList1);
             break;
         case 13:
-            if(StrList_isSorted(StrList1)){
-                printf("false");
-            }
-            else{
-                printf("true");
-            }
+            StrList_isSorted(StrList1);
             break;
         case 0:
-            printf("You chose option 13\n");
+            StrList_free(StrList1);
+            return 0;
             break;
         default:
             break;

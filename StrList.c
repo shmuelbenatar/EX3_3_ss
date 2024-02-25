@@ -55,6 +55,7 @@ size_t StrList_size(const StrList* StrList){
         current = current->_next;
     }
     return totalChars;
+    
 }
 
 void StrList_insertLast(StrList* StrList,const char* data){
@@ -111,19 +112,20 @@ char* StrList_firstData(const StrList* StrList){
     if(StrList -> _head == NULL){
         return NULL;
     }
-    return StrList -> _head -> _data;
+    return (char*)StrList -> _head -> _data;
 }
 
 void StrList_print(const StrList* StrList){
-   if(StrList -> _head == NULL){
-    return;
-   } 
-   Node* current = StrList -> _head;
-   while (current != NULL){
-        printf("%s",current -> _data);
+    Node* current = StrList -> _head;
+    
+    while (current->_next != NULL){
+        printf("%s ",current -> _data);
         current = current -> _next;
-   }
-   printf("\n");
+    }
+    if(current != NULL){
+        printf("%s",current ->_data);
+    } 
+    printf("\n");
 }
 
 
@@ -143,8 +145,7 @@ int StrList_printLen(const StrList* StrList) {
     int totalChars = 0;
     Node* current = StrList->_head;
     while (current != NULL) {
-        totalChars++; 
-        totalChars += strlen(current->_data);
+        totalChars += (int)strlen(current->_data);
         current = current->_next;
     }
     return totalChars;
@@ -153,15 +154,13 @@ int StrList_printLen(const StrList* StrList) {
 
 int StrList_count(StrList* StrList, const char* data){
     int count = 0;
-    if (StrList && data) {
         Node* current = StrList->_head;
         while (current) {
-            if (current->_data == data) {
+            if (strcmp(current->_data,data) == 0) {
                 count++;
             }
             current = current->_next;
         }
-    }
     return count;
 }
 
@@ -287,62 +286,45 @@ void StrList_reverse(StrList* strList) {
     strList->_head = prev;
 }
 
-// Merge function to merge sort
-void merge(Node* left, Node* right, size_t leftSize, size_t rightSize) {
-    char *temp;
-    while (leftSize > 0 && rightSize > 0) {
-        if (left->_data <= right->_data) {
-            left = left->_next;
-            leftSize--;
-        } else {
-            temp = left->_data;
-            left->_data = right->_data;
-            right->_data = temp;
-            right = right->_next;
-            rightSize--;
+
+void StrList_sort(StrList* list) {
+    if (list->_size <= 1 && list == NULL) {
+        return;
+    }
+    
+    int size = (int)list->_size;
+
+    int i,j;
+    Node* node;
+    Node* nextNode;
+
+    for(i = 0;i < size - 1;i++){
+        node = list->_head;
+        nextNode = node->_next;
+        for(j=0; j < size - 1 - i;j++){
+            if(0 < strcmp(node->_data,nextNode->_data)) {
+                char* temp = nextNode->_data;
+                nextNode->_data = node->_data;
+                node->_data = temp;
+            }
+            node = node->_next;
+            nextNode = nextNode->_next;
         }
     }
 }
-
-// Merge Sort 
-void mergeSort(Node** head, size_t size) {
-    if (size <= 1) {
-        return;
-    }
-    Node *left, *right;
-    size_t mid = size / 2;
-    left = *head;
-    for (size_t i = 0; i < mid - 1; ++i) {
-        left = left->_next;
-    }
-    right = left->_next;
-    left->_next = NULL;
-    mergeSort(&(*head), mid);
-    mergeSort(&right, size - mid);
-    merge(*head, right, mid, size - mid);
-}
-
-void StrList_sort(StrList* list) {
-    if (list->_size <= 1) {
-        return;
-    }
-    mergeSort(&(list->_head), list->_size);
-}
-
-
-
 
 
 int StrList_isSorted(StrList* strList) {
     Node* current = strList->_head;
     
-    while (current != NULL && current->_next != NULL) {
+    while (current->_next != NULL) {
         if (strcmp(current->_data, current->_next->_data) > 0) {
+            printf("false\n");
             return 0; 
         }
         current = current->_next;
     }
-    
+    printf("true\n");
     return 1; //if current is null so return 1
 }
 

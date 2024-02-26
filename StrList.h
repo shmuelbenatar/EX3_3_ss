@@ -134,9 +134,5 @@ Node* Node_alloc(char* data, Node* next);
 
 void Node_free(Node* node);
 
-void merge(Node* left, Node* right, size_t leftSize, size_t rightSize);
-
-void mergeSort(Node** head, size_t size);
-
 
 #endif

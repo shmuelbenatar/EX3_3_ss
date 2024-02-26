@@ -213,8 +213,6 @@ void StrList_removeAt(StrList* strList, int index) {
 }
 
 
-
-
 int StrList_isEqual(const StrList* strList1, const StrList* strList2) {
     Node* current1 = strList1->_head;
     Node* current2 = strList2->_head;
@@ -269,8 +267,6 @@ StrList* StrList_clone(const StrList* StrList) {
 }
 
 
-
-
 void StrList_reverse(StrList* strList) {
     Node* prev = NULL;
     Node* current = strList->_head;
@@ -288,10 +284,9 @@ void StrList_reverse(StrList* strList) {
 
 
 void StrList_sort(StrList* list) {
-    if (list->_size <= 1 && list == NULL) {
+    if (list == NULL && list->_size <= 1) {
         return;
     }
-    
     int size = (int)list->_size;
 
     int i,j;

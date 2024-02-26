@@ -2,6 +2,7 @@
 #include <stdio.h>
 #include <string.h>
 #include "StrList.h"
+#define MAXWORD 100
 
 
 
@@ -10,7 +11,6 @@ int main(){
     int userChoice;
     StrList *StrList1 = StrList_alloc();
     int userSize = 0;
-    int maxWord = 45;
 
     
     do
@@ -24,26 +24,23 @@ int main(){
             if(scanf("%d",&userSize)!=1){
                 return 0;
             } 
-            
             for (int i = 0; i < userSize; i++) {
-                char newWord[maxWord];
-                scanf("%s", newWord);
+                char newWord[MAXWORD];
+                scanf(" %s", newWord);
                 if (newWord != NULL) {
                     StrList_insertLast(StrList1, newWord);
                 }
             }
             break;
-           
         case 2:
             int getIndex = -1;
-            scanf("%d", &getIndex);
+            scanf(" %d", &getIndex);
             char data[100];
-            scanf("%s",data);
+            scanf(" %s",data);
             StrList_insertAt(StrList1, data, getIndex);
             break;
         case 3:
             StrList_print(StrList1);
-
             break;
         case 4:
             int lenString = StrList_size(StrList1);
@@ -92,13 +89,12 @@ int main(){
             StrList_isSorted(StrList1);
             break;
         case 0:
-            StrList_free(StrList1);
-            return 0;
             break;
         default:
             break;
         }
 
     } while (userChoice != 0 && userChoice != EOF); // Continue the loop until the user chooses to exit
+    StrList_free(StrList1);    
     return 0;
 }
